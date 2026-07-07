@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Japan Reise App 2026</title>
+  <meta name="theme-color" content="#111827" />
+  <style>
+    :root {
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+      --tokyo: #e5e7eb;
+      --fuji: #fee2e2;
+      --kyoto: #dcfce7;
+      --osaka: #dbeafe;
+      --travel: #fef3c7;
+      --accent: #2563eb;
+      --accent-dark: #1d4ed8;
+      --ok: #15803d;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .app {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 18px 14px 96px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #111827 0%, #334155 100%);
+      color: #fff;
+      border-radius: 26px;
+      padding: 22px 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+    .hero h1 { margin: 0 0 6px; font-size: 28px; }
+    .hero p { margin: 0; color: #dbe4f0; line-height: 1.45; }
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .kpi {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 10px;
+      text-align: center;
+    }
+    .kpi strong { display: block; font-size: 20px; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+    .muted { color: var(--muted); }
+    .hotel, .ticket, .day, .metric {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #fff;
+    }
+    .hotel h3, .ticket h3, .day h3, .metric h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-right: 6px;
+      margin-bottom: 8px;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+    .price { font-weight: 700; color: var(--ok); }
+    .tokyo { background: var(--tokyo); }
+    .fuji { background: var(--fuji); }
+    .kyoto { background: var(--kyoto); }
+    .osaka { background: var(--osaka); }
+    .travel { background: var(--travel); }
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .quick-links a, .btn {
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: #eff6ff;
+      color: var(--accent-dark);
+      border: 1px solid #bfdbfe;
+      font-weight: 700;
+    }
+    .btn.secondary {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+    .route-btn {
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: #ecfdf5;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+    .budget-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    .tabs {
+      position: sticky;
+      bottom: 10px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      padding: 8px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      margin-top: 16px;
+    }
+    .tab {
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+      color: var(--text);
+      padding: 10px 6px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      font-size: 13px;
+    }
+    ul { margin: 8px 0 0 18px; padding: 0; }
+    li { margin-bottom: 4px; }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .legend span {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+    }
+    .small { font-size: 13px; }
+    @media (max-width: 860px) {
+      .grid, .budget-grid, .kpis { grid-template-columns: 1fr; }
+      .quick-links { grid-template-columns: 1fr; }
+      .tabs { grid-template-columns: repeat(3, 1fr); }
+      .hero h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <section class="hero">
+      <h1>Japan Reise App 2026</h1>
+      <p>Mobile Reise-App für iPhone, Android und Laptop. Mit Hotels, Tagesplan, Ticket-Reminder, Budget und klaren Reisetagen.</p>
+      <div class="kpis">
+        <div class="kpi"><strong>17</strong><span>Tage</span></div>
+        <div class="kpi"><strong>5</strong><span>Hotels</span></div>
+        <div class="kpi"><strong>€1.093</strong><span>Hotels</span></div>
+        <div class="kpi"><strong>€3.580</strong><span>Flüge</span></div>
+        <div class="kpi"><strong>€256</strong><span>Events</span></div>
+        <div class="kpi"><strong>21.07</strong><span>Start</span></div>
+      </div>
+      <div class="legend">
+        <span class="tokyo">Tokyo</span>
+        <span class="fuji">Fuji</span>
+        <span class="kyoto">Kyoto</span>
+        <span class="osaka">Osaka</span>
+        <span class="travel">Reisetag</span>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card" id="hotels">
+        <h2 class="section-title">Gebuchte Hotels</h2>
+        <div class="hotel tokyo">
+          <h3>Tokyo 1 · Randor Residence Tokyo Classic</h3>
+          <div class="muted">21.07.2026–26.07.2026 · 5 Nächte · Dreibettzimmer</div>
+          <div class="price">ca. €518</div>
+        </div>
+        <div class="hotel fuji">
+          <h3>Fuji · T&T Fujiyama Guest House</h3>
+          <div class="muted">27.07.2026–28.07.2026 · 1 Nacht · Vierbettzimmer mit Bergblick</div>
+          <div class="price">ca. €46</div>
+        </div>
+        <div class="hotel kyoto">
+          <h3>Kyoto · INA House Nijojo</h3>
+          <div class="muted">28.07.2026–01.08.2026 · 4 Nächte · Studio-Apartment</div>
+          <div class="price">ca. €229</div>
+        </div>
+        <div class="hotel osaka">
+          <h3>Osaka · HOTALU Universal Vacation - Kan</h3>
+          <div class="muted">01.08.2026–04.08.2026 · 3 Nächte · Apartment mit 1 Schlafzimmer</div>
+          <div class="price">ca. €196</div>
+        </div>
+        <div class="hotel tokyo">
+          <h3>Tokyo 2 · Super Hotel JR Ueno Iriyaguchi</h3>
+          <div class="muted">04.08.2026–05.08.2026 · 1 Nacht · Doppelzimmer mit Hochbett</div>
+          <div class="price">€104,64</div>
+        </div>
+      </section>
+
+      <section class="card" id="tickets">
+        <h2 class="section-title">Vorher buchen</h2>
+        <div class="ticket">
+          <h3>Nintendo Museum</h3>
+          <div class="muted">Besuch: 02.08.2026 · 14:30–15:00 Uhr (JST) <span style="background:#dcfce7;color:#166534;padding:2px 8px;border-radius:999px;font-weight:bold;font-size:12px;">✔ Gebucht</span></div>
+          <ul>
+            <li>2 Erwachsene + 1 Youth</li>
+            <li>Gesamt: 8.800 JPY · ca. €47,71</li>
+            <li>QR-Codes ab 01.08.2026 ab 14:00 Uhr abrufbar</li>
+          </ul>
+        </div>
+        <div class="ticket">
+          <h3>teamLab Planets</h3>
+          <div class="muted">Besuch: 24.07.2026 · 19:00–19:30 Uhr (JST) <span style="background:#dcfce7;color:#166534;padding:2px 8px;border-radius:999px;font-weight:bold;font-size:12px;">✔ Gebucht</span></div>
+          <ul>
+            <li>Passt zum geplanten Tokyo-Tag 4</li>
+            <li>2 Erwachsene + 1 Junior High/High School</li>
+            <li>Gesamt: 10.400 JPY · ca. €56,39</li>
+          </ul>
+        </div>
+        <div class="ticket">
+          <h3>Nara Park</h3>
+          <div class="muted">Besuch: 03.08.2026</div>
+          <ul>
+            <li>Berühmte frei laufende, sich verbeugende Rehe</li>
+            <li>Todai-ji Tempel</li>
+            <li>Keine Reservierung notwendig</li>
+          </ul>
+        </div>
+        
+        <div class="ticket">
+          <h3>Tokyo Skytree</h3>
+          <div class="muted">Besuch: 22.07.2026 · 18:00 Uhr <span style="background:#dcfce7;color:#166534;padding:2px 8px;border-radius:999px;font-weight:bold;font-size:12px;">✔ Gebucht</span></div>
+          <ul>
+            <li>Tembo Deck + Tembo Galleria</li>
+            <li>3 Personen</li>
+            <li>165 USD</li>
+          </ul>
+        </div>
+
+        <div class="ticket">
+          <h3>Shibuya Sky</h3>
+          <div class="muted">Besuch: 23.07.2026</div>
+          <ul>
+            <li>ca. Ende Juni 2026 buchen</li>
+            <li>Sunset-Slots schnell weg</li>
+            <li>shibuya-scramble-square.com/sky</li>
+          </ul>
+        </div>
+        <div class="ticket">
+          <h3>eSIM / Internet</h3>
+          <div class="muted">Vor dem Abflug aktivieren</div>
+          <ul>
+            <li>Airalo oder Ubigi prüfen</li>
+            <li>spätestens 1 Woche vorher</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <section class="card" id="tage">
+      <h2 class="section-title">Tagesplan</h2>
+      <div class="day tokyo"><h3>Tag 1 · 21.07.2026 · Tokyo</h3><div class="badge">Hotelstart</div><div class="badge">Randor Residence</div><div>Ankommen, Hotel, Konbini, ruhiger Abend.</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=Randor+Residence+Tokyo+Classic&destination=Randor+Residence+Tokyo+Classic&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day tokyo"><h3>Tag 2 · 22.07.2026 · Tokyo</h3><div class="badge">Hauptspot</div><div>Senso-ji · optional Skytree</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=Randor+Residence+Tokyo+Classic&destination=Senso-ji+Tokyo&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day tokyo"><h3>Tag 3 · 23.07.2026 · Tokyo</h3><div class="badge">2 Hauptspots</div><div>Shibuya Crossing + Shibuya Sky</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=Randor+Residence+Tokyo+Classic&destination=Shibuya+Sky+Tokyo&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day tokyo"><h3>Tag 4 · 24.07.2026 · Tokyo</h3><div class="badge">Gebucht</div><div>teamLab Planets 19:00–19:30 · davor Pokémon Center / Toyosu entspannt einplanen</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=Randor+Residence+Tokyo+Classic&destination=teamLab+Planets+Tokyo&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day tokyo"><h3>Tag 5 · 25.07.2026 · Tokyo</h3><div>Akihabara</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=Randor+Residence+Tokyo+Classic&destination=Akihabara+Tokyo&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day tokyo"><h3>Tag 6 · 26.07.2026 · Tokyo</h3><div>Flex-Tag</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=Randor+Residence+Tokyo+Classic&destination=Tokyo&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day fuji"><h3>Tag 7 · 27.07.2026 · Fuji</h3><div class="badge">Hotelwechsel</div><div>Kawaguchiko · optional Chureito Pagoda</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=T%26T+Fujiyama+Guest+House&destination=Lake+Kawaguchiko&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day travel"><h3>Tag 8 · 28.07.2026 · Reisetag</h3><div class="badge">Hotelwechsel</div><div>Transfer nach Kyoto · INA House Nijojo</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=T%26T+Fujiyama+Guest+House&destination=INA+House+Nijojo+Kyoto&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day kyoto"><h3>Tag 9 · 29.07.2026 · Kyoto</h3><div>Kiyomizu-dera</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=INA+House+Nijojo+Kyoto&destination=Kiyomizu-dera+Kyoto&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day kyoto"><h3>Tag 10 · 30.07.2026 · Kyoto</h3><div>Fushimi Inari + Gion / Nishiki Market</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=INA+House+Nijojo+Kyoto&destination=Fushimi+Inari+Taisha+Kyoto&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day kyoto"><h3>Tag 11 · 31.07.2026 · Kyoto</h3><div>Arashiyama Bamboo Grove</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=INA+House+Nijojo+Kyoto&destination=Arashiyama+Bamboo+Grove+Kyoto&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day osaka"><h3>Tag 12 · 01.08.2026 · Osaka</h3><div class="badge">Hotelwechsel</div><div>Transfer nach Osaka · HOTALU Universal Vacation - Kan · Osaka Castle + Dotonbori am Abend</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=HOTALU+Universal+Vacation+-+Kan+Osaka&destination=Dotonbori+Osaka&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day osaka"><h3>Tag 13 · 02.08.2026 · Osaka/Kyoto</h3><div class="badge">Gebucht</div><div>Nintendo Museum 14:30–15:00 · von Osaka als Tagesausflug Richtung Uji/Kyoto planen</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=HOTALU+Universal+Vacation+-+Kan+Osaka&destination=Nintendo+Museum+Kyoto&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day osaka"><h3>Tag 14 · 03.08.2026 · Osaka</h3><div>Tagesausflug nach Nara · Nara Park & Todai-ji</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=HOTALU+Universal+Vacation+-+Kan+Osaka&destination=Nara+Park&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day travel"><h3>Tag 15 · 04.08.2026 · Reisetag</h3><div class="badge">Hotelwechsel</div><div>Zurück nach Tokyo · Super Hotel JR Ueno Iriyaguchi</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=HOTALU+Universal+Vacation+-+Kan+Osaka&destination=Super+Hotel+JR+Ueno+Iriyaguchi+Tokyo&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day tokyo"><h3>Tag 16 · 04.08.2026 · Tokyo Abend</h3><div>Letzter Abend in Tokyo · Essen / Spaziergang / Packen</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=Super+Hotel+JR+Ueno+Iriyaguchi+Tokyo&destination=Ueno+Tokyo&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+      <div class="day travel"><h3>Tag 17 · 05.08.2026 · Rückflug</h3><div>Abflug Narita 10:40 · JAL JL0407 nach Frankfurt</div><div><a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=Super+Hotel+JR+Ueno+Iriyaguchi+Tokyo&destination=Narita+International+Airport&travelmode=transit" target="_blank">🚆 Route vom Hotel zum Spot</a></div></div>
+    </section>
+
+    <section class="card" id="budget">
+      <h2 class="section-title">Budget kompakt</h2>
+      <div class="budget-grid">
+        <div class="metric"><h3>Hotels gesamt</h3><div class="price">€1.093</div></div>
+        <div class="metric"><h3>Flüge</h3><div class="price">€3.580,37</div></div>
+        <div class="metric"><h3>Events gebucht</h3><div class="price">€255,90</div></div>
+        <div class="metric"><h3>Gesamt Reise</h3><div class="price">€4.929,27</div></div>
+        <div class="metric"><h3>Unterkünfte</h3><div class="price">5</div></div>
+      </div>
+      <p class="muted small" style="margin-top:12px;">Event-Umrechnung ca. nach Referenzkurs 1 EUR = 184,44 JPY. Enthält Nintendo Museum (€47,71), teamLab (€56,39) und Tokyo Skytree (165 USD ≈ €151,80). Tatsächliche Kreditkartenabrechnung kann leicht abweichen.</p>
+    </section>
+
+    <section class="card" id="attractions">
+      <h2 class="section-title">Hauptattraktionen (Direktlinks & Bilder)</h2>
+      <div class="quick-links">
+        <a href="https://www.google.com/search?q=Senso-ji+Tokyo&tbm=isch" target="_blank">Senso‑ji Bilder</a>
+        <a href="https://www.google.com/search?q=Shibuya+Crossing&tbm=isch" target="_blank">Shibuya Crossing Bilder</a>
+        <a href="https://www.google.com/search?q=teamLab+Planets+Tokyo&tbm=isch" target="_blank">teamLab Planets Bilder</a>
+        <a href="https://www.google.com/search?q=Pokemon+Center+Tokyo&tbm=isch" target="_blank">Pokémon Center Bilder</a>
+        <a href="https://www.google.com/search?q=Akihabara+Tokyo&tbm=isch" target="_blank">Akihabara Bilder</a>
+        <a href="https://www.google.com/search?q=Lake+Kawaguchiko+Mount+Fuji&tbm=isch" target="_blank">Fuji Kawaguchiko Bilder</a>
+        <a href="https://www.google.com/search?q=Kiyomizu-dera+Kyoto&tbm=isch" target="_blank">Kiyomizu‑dera Bilder</a>
+        <a href="https://www.google.com/search?q=Nintendo+Museum+Kyoto&tbm=isch" target="_blank">Nintendo Museum Bilder</a>
+        <a href="https://www.google.com/search?q=Arashiyama+Bamboo+Grove&tbm=isch" target="_blank">Arashiyama Bilder</a>
+        <a href="https://www.google.com/search?q=Dotonbori+Osaka&tbm=isch" target="_blank">Dotonbori Bilder</a>
+        <a href="https://www.google.com/search?q=Osaka+Castle&tbm=isch" target="_blank">Osaka Castle Bilder</a>
+        <a href="https://www.google.com/search?q=Nara+Park+deer&tbm=isch" target="_blank">Nara Park Bilder</a>
+      </div>
+      <p class="muted small" style="margin-top:12px;">Mit einem Klick öffnet sich direkt eine Google‑Bildersuche zur Hauptattraktion des jeweiligen Tages.</p>
+    </section>
+
+    <section class="card" id="links">
+      <h2 class="section-title">Schnelllinks</h2>
+      <div class="quick-links">
+        <a href="https://museum.nintendo.com/en/" target="_blank">Nintendo Museum</a>
+        <a href="https://teamlabplanets.dmm.com/en/" target="_blank">teamLab Planets</a>
+        <a href="https://www.japan.travel/en/spot/69/" target="_blank">Nara Park</a>
+        <a href="https://www.shibuya-scramble-square.com/sky/" target="_blank">Shibuya Sky</a>
+        <a href="https://smart-ex.jp/en/index.php" target="_blank">Shinkansen buchen</a>
+        <a href="https://www.kuronekoyamato.co.jp/en/" target="_blank">Yamato Transport</a>
+      </div>
+      <p class="muted small" style="margin-top:12px;">Nächster Schritt: veröffentlichte PWA mit Homescreen-Icon, Offline-Unterstützung und installierbarer Version.</p>
+    </section>
+
+    <nav class="tabs">
+      <a class="tab" href="#hotels">Hotels</a>
+      <a class="tab" href="#tickets">Tickets</a>
+      <a class="tab" href="#tage">Tage</a>
+      <a class="tab" href="#budget">Budget</a>
+      <a class="tab" href="#links">Links</a>
+    </nav>
+  </div>
+<script>
+const days = document.querySelectorAll('.day');
+
+function getQuery(text) {
+  const t = text.toLowerCase();
+  if (t.includes('senso-ji')) return 'Senso-ji Tokyo';
+  if (t.includes('shibuya crossing') || t.includes('shibuya sky')) return 'Shibuya Crossing Tokyo';
+  if (t.includes('teamlab') && t.includes('pokémon')) return 'teamLab Planets Tokyo';
+  if (t.includes('akihabara')) return 'Akihabara Tokyo';
+  if (t.includes('kawaguchiko') || t.includes('mount fuji') || t.includes('chureito')) return 'Lake Kawaguchiko Mount Fuji';
+  if (t.includes('kyoto') && t.includes('ankommen')) return 'Kyoto Station';
+  if (t.includes('kiyomizu')) return 'Kiyomizu-dera Kyoto';
+  if (t.includes('nintendo museum')) return 'Nintendo Museum Kyoto';
+  if (t.includes('arashiyama')) return 'Arashiyama Bamboo Grove Kyoto';
+  if (t.includes('dotonbori')) return 'Dotonbori Osaka';
+  if (t.includes('osaka castle')) return 'Osaka Castle';
+  if (t.includes('nara') || t.includes('todai-ji')) return 'Nara Park';
+  if (t.includes('ueno')) return 'Ueno Tokyo';
+  if (t.includes('rückflug') || t.includes('narita')) return 'Narita International Airport';
+  if (t.includes('tokyo')) return 'Tokyo';
+  return 'Japan';
+}
+
+days.forEach(day => {
+  const text = day.innerText || '';
+  const query = getQuery(text);
+  const container = document.createElement('div');
+  container.style.marginTop = '8px';
+
+  const maps = document.createElement('a');
+  maps.href = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
+  maps.target = '_blank';
+  maps.innerText = '📍 Google Maps';
+  maps.style.marginRight = '10px';
+  maps.className = 'btn secondary';
+
+  const images = document.createElement('a');
+  images.href = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
+  images.target = '_blank';
+  images.innerText = '📸 Bilder';
+  images.className = 'btn';
+
+  container.appendChild(maps);
+  container.appendChild(images);
+  day.appendChild(container);
+});
+</script>
+</body>
+</html>
