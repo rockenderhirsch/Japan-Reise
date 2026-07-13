@@ -4,40 +4,205 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Japan Reise App 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
-:root{--bg:#f3f4f6;--card:#fff;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--shadow:0 10px 28px rgba(15,23,42,.08);--tokyo:#e5e7eb;--fuji:#fee2e2;--kyoto:#dcfce7;--osaka:#dbeafe;--travel:#fef3c7;--ok:#15803d;--warn:#b45309;--red:#ef4444;--blue:#2563eb}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}.app{max-width:1180px;margin:0 auto;padding:18px 14px 110px}.hero{background:linear-gradient(135deg,#111827,#334155);color:#fff;border-radius:26px;padding:22px 18px;box-shadow:var(--shadow);margin-bottom:14px}.hero h1{margin:0 0 6px;font-size:28px}.hero p{margin:0;color:#dbe4f0}.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:14px}.kpi{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:10px;text-align:center}.kpi strong{display:block;font-size:20px}.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.legend span{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--border)}.tokyo{background:var(--tokyo)}.fuji{background:var(--fuji)}.kyoto{background:var(--kyoto)}.osaka{background:var(--osaka)}.travel{background:var(--travel)}.sheet{display:none}.sheet.active{display:block}.sheet-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 12px}.sheet-title h2{margin:0;font-size:22px}.card,.day,.hotel,.metric,.ticket,.todo{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:12px}.card{box-shadow:var(--shadow)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.budget-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.muted{color:var(--muted)}.price{font-weight:700;color:var(--ok)}.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700;margin-right:6px;margin-bottom:8px;background:#eff6ff;color:#1d4ed8}.badge.good{background:#dcfce7;color:#166534}.badge.warn{background:#fef3c7;color:#92400e}.btn{display:inline-block;text-decoration:none;text-align:center;padding:10px 12px;border-radius:14px;background:#f8fafc;color:#334155;border:1px solid #cbd5e1;font-weight:700;margin:8px 8px 0 0}.btn.primary{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}.note{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:12px;margin-bottom:12px}.day-list{display:grid;grid-template-columns:1fr;gap:10px}.day{position:relative}.day.tokyo{border-left:8px solid #64748b}.day.fuji{border-left:8px solid #ef4444}.day.kyoto{border-left:8px solid #22c55e}.day.osaka{border-left:8px solid #3b82f6}.day.travel{border-left:8px solid #f59e0b}.day.hidden{display:none!important}.day-head{display:flex;justify-content:space-between;gap:12px}.date-pill{background:#111827;color:#fff;border-radius:14px;padding:8px 10px;font-size:13px;font-weight:800;min-width:70px;text-align:center}.filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.filter button{cursor:pointer;border:1px solid var(--border);border-radius:999px;padding:9px 13px;background:#fff;font-weight:800;color:#111827}.filter button.active{background:#111827;color:#fff;border-color:#111827}.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.photo-slot{min-height:118px;border:1px dashed #cbd5e1;border-radius:14px;background:#f8fafc;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.photo-slot img{width:100%;height:118px;object-fit:cover}.photo-slot figcaption{position:absolute;bottom:0;left:0;right:0;background:rgba(15,23,42,.72);color:#fff;font-size:11px;padding:4px 6px}.photo-slot.missing:before{content:'Foto hier ablegen';font-size:12px;color:#64748b;font-weight:700}.tabs{position:sticky;bottom:10px;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:8px;background:rgba(255,255,255,.94);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);backdrop-filter:blur(8px);z-index:10}.tab{text-decoration:none;text-align:center;color:#111827;padding:10px 6px;border-radius:12px;background:#f8fafc;border:1px solid var(--border);font-size:12px;font-weight:700}.tab.active{background:#111827;color:#fff}.map-shell{display:grid;grid-template-columns:300px 1fr;gap:14px}.city-btns{display:grid;gap:8px}.city-btn{cursor:pointer;border:1px solid var(--border);background:#fff;border-radius:14px;padding:11px 12px;text-align:left;font-weight:800}.city-btn.active{background:#111827;color:#fff}.map-box{background:linear-gradient(180deg,#dff8ff,#ecfeff);border:1px solid #bae6fd;border-radius:22px;min-height:620px;overflow:hidden}.map-svg{width:100%;height:620px;display:block}.map-layer{display:none}.map-layer.active{display:block}.land{fill:#bbf7d0;stroke:#86efac;stroke-width:2}.route{stroke:#2563eb;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;fill:none;marker-end:url(#arrow)}.hotel-dot{fill:#2563eb}.spot-dot{fill:#ef4444}.food-dot{fill:#f97316}.pin-num{font-size:12px;font-weight:800;fill:#fff}.map-label{font-size:13px;font-weight:800;fill:#111827}.map-title{font-size:24px;font-weight:800;fill:#0f172a}.todo{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}.todo input{width:22px;height:22px}.todo.done{border-left:6px solid var(--ok);opacity:.72}.todo.open{border-left:6px solid var(--warn)}.todo.critical{border-left:6px solid var(--red)}.todo.done h3{text-decoration:line-through;color:#64748b}.todo-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.todo-controls button{border:1px solid var(--border);background:#fff;border-radius:12px;padding:9px 12px;font-weight:700;cursor:pointer}.cost-table{width:100%;border-collapse:collapse}.cost-table th,.cost-table td{padding:12px;border-bottom:1px solid var(--border);text-align:left}.cost-table th{background:#f8fafc;font-size:13px}@media(max-width:980px){.kpis,.grid,.budget-grid,.map-shell,.photo-grid{grid-template-columns:1fr}.tabs{grid-template-columns:repeat(3,1fr)}.app{padding-bottom:170px}.map-box,.map-svg{height:520px;min-height:520px}}
+:root{--bg:#f3f4f6;--card:#fff;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--shadow:0 10px 28px rgba(15,23,42,.08);--tokyo:#e5e7eb;--fuji:#fee2e2;--kyoto:#dcfce7;--osaka:#dbeafe;--travel:#fef3c7;--ok:#15803d;--warn:#b45309;--red:#ef4444;--blue:#2563eb}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}.app{max-width:1180px;margin:0 auto;padding:18px 14px 110px}.hero{background:linear-gradient(135deg,#111827,#334155);color:#fff;border-radius:26px;padding:22px 18px;box-shadow:var(--shadow);margin-bottom:14px}.hero h1{margin:0 0 6px;font-size:28px}.hero p{margin:0;color:#dbe4f0}.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:14px}.kpi{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:10px;text-align:center}.kpi strong{display:block;font-size:20px}.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.legend span{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--border)}.tokyo{background:var(--tokyo)}.fuji{background:var(--fuji)}.kyoto{background:var(--kyoto)}.osaka{background:var(--osaka)}.travel{background:var(--travel)}.sheet{display:none}.sheet.active{display:block}.sheet-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 12px}.sheet-title h2{margin:0;font-size:22px}.card,.day,.hotel,.metric,.ticket,.todo{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:12px}.card{box-shadow:var(--shadow)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.budget-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.muted{color:var(--muted)}.price{font-weight:700;color:var(--ok)}.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700;margin-right:6px;margin-bottom:8px;background:#eff6ff;color:#1d4ed8}.badge.good{background:#dcfce7;color:#166534}.badge.warn{background:#fef3c7;color:#92400e}.btn{display:inline-block;text-decoration:none;text-align:center;padding:10px 12px;border-radius:14px;background:#f8fafc;color:#334155;border:1px solid #cbd5e1;font-weight:700;margin:8px 8px 0 0}.btn.primary{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}.note{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:12px;margin-bottom:12px}.day-list{display:grid;grid-template-columns:1fr;gap:10px}.day{position:relative}.day.tokyo{border-left:8px solid #64748b}.day.fuji{border-left:8px solid #ef4444}.day.kyoto{border-left:8px solid #22c55e}.day.osaka{border-left:8px solid #3b82f6}.day.travel{border-left:8px solid #f59e0b}.day.hidden{display:none!important}.day-head{display:flex;justify-content:space-between;gap:12px}.date-pill{background:#111827;color:#fff;border-radius:14px;padding:8px 10px;font-size:13px;font-weight:800;min-width:70px;text-align:center}.filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.filter button{cursor:pointer;border:1px solid var(--border);border-radius:999px;padding:9px 13px;background:#fff;font-weight:800;color:#111827}.filter button.active{background:#111827;color:#fff;border-color:#111827}.photo-toggle{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:10px 12px;margin-bottom:12px}
+.photo-toggle-buttons{display:flex;gap:8px}
+.photo-toggle button{cursor:pointer;border:1px solid var(--border);border-radius:999px;padding:8px 14px;background:#fff;font-weight:800;color:#111827}
+.photo-toggle button.active{background:#111827;color:#fff;border-color:#111827}
+body.photos-hidden .photo-grid{display:none!important}.photo-grid{display:grid;gap:8px;margin-top:12px}
+.photo-grid.count-1{grid-template-columns:1fr}
+.photo-grid.count-2{grid-template-columns:1fr 1fr}
+.photo-grid.count-3{grid-template-columns:2fr 1fr;grid-template-rows:135px 135px}
+.photo-slot{margin:0;border-radius:14px;background:#e5e7eb;position:relative;overflow:hidden;min-height:190px}
+.photo-grid.count-3 .photo-slot{min-height:0}
+.photo-grid.count-3 .photo-slot:first-child{grid-row:1/3}
+.photo-slot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s ease}
+.photo-slot:hover img{transform:scale(1.03)}
+.photo-slot figcaption{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(15,23,42,.82));color:#fff;font-size:11px;padding:24px 8px 7px}
+.photo-slot.missing{display:flex;align-items:center;justify-content:center;color:#64748b;font-size:12px;font-weight:700}
+.photo-slot.missing:before{content:'Foto konnte nicht geladen werden'}.tabs{position:sticky;bottom:10px;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:8px;background:rgba(255,255,255,.94);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);backdrop-filter:blur(8px);z-index:10}.tab{text-decoration:none;text-align:center;color:#111827;padding:10px 6px;border-radius:12px;background:#f8fafc;border:1px solid var(--border);font-size:12px;font-weight:700}.tab.active{background:#111827;color:#fff}.map-shell{display:grid;grid-template-columns:300px 1fr;gap:14px}.city-btns{display:grid;gap:8px}.city-btn{cursor:pointer;border:1px solid var(--border);background:#fff;border-radius:14px;padding:11px 12px;text-align:left;font-weight:800}.city-btn.active{background:#111827;color:#fff}.map-box{background:linear-gradient(180deg,#dff8ff,#ecfeff);border:1px solid #bae6fd;border-radius:22px;min-height:620px;overflow:hidden}.map-svg{width:100%;height:620px;display:block}.map-layer{display:none}.map-layer.active{display:block}.land{fill:#bbf7d0;stroke:#86efac;stroke-width:2}.route{stroke:#2563eb;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;fill:none;marker-end:url(#arrow)}.hotel-dot{fill:#2563eb}.spot-dot{fill:#ef4444}.food-dot{fill:#f97316}.pin-num{font-size:12px;font-weight:800;fill:#fff}.map-label{font-size:13px;font-weight:800;fill:#111827}.map-title{font-size:24px;font-weight:800;fill:#0f172a}.todo{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}.todo input{width:22px;height:22px}.todo.done{border-left:6px solid var(--ok);opacity:.72}.todo.open{border-left:6px solid var(--warn)}.todo.critical{border-left:6px solid var(--red)}.todo.done h3{text-decoration:line-through;color:#64748b}.todo-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.todo-controls button{border:1px solid var(--border);background:#fff;border-radius:12px;padding:9px 12px;font-weight:700;cursor:pointer}.cost-table{width:100%;border-collapse:collapse}.cost-table th,.cost-table td{padding:12px;border-bottom:1px solid var(--border);text-align:left}.cost-table th{background:#f8fafc;font-size:13px}@media(max-width:980px){.kpis,.grid,.budget-grid,.map-shell{grid-template-columns:1fr}.tabs{grid-template-columns:repeat(3,1fr)}.app{padding-bottom:170px}.map-box,.map-svg{height:520px;min-height:520px}.photo-grid.count-2,.photo-grid.count-3{grid-template-columns:1fr}.photo-grid.count-3{grid-template-rows:none}.photo-grid.count-3 .photo-slot:first-child{grid-row:auto}.photo-slot{min-height:180px}}
+
+#japanMap{height:620px;width:100%;border-radius:22px}
+.map-box{background:#dff8ff}
+.map-legend{display:grid;gap:8px;margin-top:14px;font-size:13px}
+.map-legend span{display:flex;align-items:center;gap:8px}
+.legend-dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+.legend-dot.hotel{background:#2563eb}.legend-dot.spot{background:#ef4444}.legend-dot.trip{background:#7c3aed}
+.leaflet-popup-content strong{font-size:14px}
+.city-btn small{display:block;font-weight:500;color:inherit;opacity:.75;margin-top:3px}
+@media(max-width:980px){#japanMap{height:520px}}
+
 </style>
 </head>
 <body>
 <div class="app">
 <section class="hero"><h1>Japan Reise App 2026</h1><p>21. Juli – 5. August · 2 Erwachsene, 1 Kind · Tokyo → Fuji/Kawaguchiko → Kyoto → Osaka → Tokyo</p><div class="kpis"><div class="kpi"><strong>17</strong><span>Tage</span></div><div class="kpi"><strong>5</strong><span>Hotels</span></div><div class="kpi"><strong>€1.061</strong><span>Hotels</span></div><div class="kpi"><strong>€3.580</strong><span>Flüge</span></div><div class="kpi"><strong>€256</strong><span>Events</span></div><div class="kpi"><strong>21.07</strong><span>Start</span></div></div><div class="legend"><span class="tokyo">Tokyo</span><span class="fuji">Fuji</span><span class="kyoto">Kyoto</span><span class="osaka">Osaka</span><span class="travel">Reisetag</span></div></section>
-<section class="sheet active" id="start"><div class="sheet-title"><h2>Startseite · Tagesliste</h2><span class="badge good">Filter aktiv</span></div><div class="filter"><button class="active" data-filter="all">Alle Tage</button><button data-filter="tokyo">Tokyo</button><button data-filter="fuji">Fuji</button><button data-filter="kyoto">Kyoto</button><button data-filter="osaka">Osaka</button><button data-filter="travel">Reisetage</button></div><div class="note"><strong>Fotos:</strong> Bilder in GitHub unter <strong>images/tag02-1.jpg</strong> usw. ablegen.</div><div class="day-list" id="dayList"></div></section>
-<section class="sheet" id="karte"><div class="sheet-title"><h2>Karte</h2><span class="badge good">ohne externe Scripts</span></div><div class="note">Diese Karte läuft ohne externe Bibliotheken. Dadurch sollte kein Sandbox-/Scriptfehler mehr entstehen.</div><div class="map-shell"><div class="card"><h3>Ort auswählen</h3><div class="city-btns"><button class="city-btn active" data-city="gesamt">Gesamtroute</button><button class="city-btn" data-city="tokyo">Tokyo</button><button class="city-btn" data-city="fuji">Fuji/Kawaguchiko</button><button class="city-btn" data-city="kyoto">Kyoto</button><button class="city-btn" data-city="osaka">Osaka</button><button class="city-btn" data-city="nara">Nara</button></div><div id="cityText" class="muted" style="margin-top:12px"></div></div><div class="map-box"><svg class="map-svg" viewBox="0 0 760 620"><defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/></marker></defs><rect width="760" height="620" fill="#dff8ff"/><path d="M40,530 C150,430 220,330 350,275 C500,210 545,115 730,80 L760,80 L760,620 L0,620 Z" class="land"/><path d="M430,360 C500,380 530,460 475,525 C420,585 318,582 270,520 C340,500 390,450 402,390 C406,375 415,365 430,360 Z" class="land" opacity=".8"/>
-<g id="map-gesamt" class="map-layer active"><text x="28" y="42" class="map-title">Gesamtroute</text><path class="route" d="M610,185 L548,245 L420,335 L335,320 L455,430 L335,320 L610,185"/><circle cx="610" cy="185" r="18" class="hotel-dot"/><text x="610" y="190" text-anchor="middle" class="pin-num">1</text><text x="632" y="188" class="map-label">Tokyo</text><circle cx="548" cy="245" r="18" class="spot-dot"/><text x="548" y="250" text-anchor="middle" class="pin-num">2</text><text x="570" y="248" class="map-label">Fuji</text><circle cx="420" cy="335" r="18" class="spot-dot"/><text x="420" y="340" text-anchor="middle" class="pin-num">3</text><text x="442" y="338" class="map-label">Kyoto</text><circle cx="335" cy="320" r="18" class="spot-dot"/><text x="335" y="325" text-anchor="middle" class="pin-num">4</text><text x="245" y="322" class="map-label">Osaka</text><circle cx="455" cy="430" r="18" class="spot-dot"/><text x="455" y="435" text-anchor="middle" class="pin-num">5</text><text x="477" y="433" class="map-label">Nara</text></g>
-<g id="map-tokyo" class="map-layer"><text x="28" y="42" class="map-title">Tokyo</text><circle cx="350" cy="300" r="19" class="hotel-dot"/><text x="350" y="305" text-anchor="middle" class="pin-num">H</text><text x="375" y="300" class="map-label">Hotel</text><path d="M350,300 L220,170" class="route"/><circle cx="220" cy="170" r="15" class="spot-dot"/><text x="242" y="170" class="map-label">Senso‑ji</text><path d="M350,300 L530,155" class="route"/><circle cx="530" cy="155" r="15" class="spot-dot"/><text x="552" y="155" class="map-label">Skytree</text><path d="M350,300 L505,360" class="route"/><circle cx="505" cy="360" r="15" class="spot-dot"/><text x="527" y="360" class="map-label">Shibuya Sky</text><path d="M350,300 L230,410" class="route"/><circle cx="230" cy="410" r="15" class="spot-dot"/><text x="252" y="410" class="map-label">teamLab</text><path d="M350,300 L615,285" class="route"/><circle cx="615" cy="285" r="15" class="spot-dot"/><text x="637" y="285" class="map-label">Akihabara</text></g>
-<g id="map-fuji" class="map-layer"><text x="28" y="42" class="map-title">Fuji/Kawaguchiko</text><circle cx="360" cy="320" r="19" class="hotel-dot"/><text x="385" y="320" class="map-label">T&amp;T Fujiyama</text><path d="M360,320 L245,230" class="route"/><circle cx="245" cy="230" r="15" class="spot-dot"/><text x="267" y="230" class="map-label">Lake Kawaguchiko</text><path d="M360,320 L515,195" class="route"/><circle cx="515" cy="195" r="15" class="spot-dot"/><text x="537" y="195" class="map-label">Chureito</text></g>
-<g id="map-kyoto" class="map-layer"><text x="28" y="42" class="map-title">Kyoto</text><circle cx="360" cy="310" r="19" class="hotel-dot"/><text x="385" y="310" class="map-label">INA House Nijojo</text><path d="M360,310 L215,205" class="route"/><circle cx="215" cy="205" r="15" class="spot-dot"/><text x="237" y="205" class="map-label">Kiyomizu‑dera</text><path d="M360,310 L530,205" class="route"/><circle cx="530" cy="205" r="15" class="spot-dot"/><text x="552" y="205" class="map-label">Fushimi Inari</text><path d="M360,310 L500,385" class="route"/><circle cx="500" cy="385" r="15" class="food-dot"/><text x="522" y="385" class="map-label">Gion / Nishiki</text><path d="M360,310 L195,405" class="route"/><circle cx="195" cy="405" r="15" class="spot-dot"/><text x="217" y="405" class="map-label">Arashiyama</text></g>
-<g id="map-osaka" class="map-layer"><text x="28" y="42" class="map-title">Osaka</text><circle cx="355" cy="320" r="19" class="hotel-dot"/><text x="380" y="320" class="map-label">Montana Wing Yebisu</text><path d="M355,320 L225,392" class="route"/><circle cx="225" cy="392" r="15" class="food-dot"/><text x="247" y="392" class="map-label">Dotonbori</text><path d="M355,320 L525,220" class="route"/><circle cx="525" cy="220" r="15" class="spot-dot"/><text x="547" y="220" class="map-label">Osaka Castle</text><path d="M355,320 L590,375" class="route"/><circle cx="590" cy="375" r="15" class="spot-dot"/><text x="612" y="375" class="map-label">Nintendo Museum</text><path d="M355,320 L470,465" class="route"/><circle cx="470" cy="465" r="15" class="spot-dot"/><text x="492" y="465" class="map-label">Nara</text></g>
-<g id="map-nara" class="map-layer"><text x="28" y="42" class="map-title">Nara</text><circle cx="270" cy="340" r="19" class="hotel-dot"/><text x="295" y="340" class="map-label">Start: Osaka</text><path d="M270,340 L500,245" class="route"/><circle cx="500" cy="245" r="15" class="spot-dot"/><text x="522" y="245" class="map-label">Nara Park</text><path d="M500,245 L580,365" class="route"/><circle cx="580" cy="365" r="15" class="spot-dot"/><text x="602" y="365" class="map-label">Todai‑ji</text></g></svg></div></div></section>
+<section class="sheet active" id="start"><div class="sheet-title"><h2>Startseite · Tagesliste</h2><span class="badge good">Filter aktiv</span></div><div class="filter"><button class="active" data-filter="all">Alle Tage</button><button data-filter="tokyo">Tokyo</button><button data-filter="fuji">Fuji</button><button data-filter="kyoto">Kyoto</button><button data-filter="osaka">Osaka</button><button data-filter="travel">Reisetage</button></div>
+<div class="photo-toggle">
+  <span><strong>Bilder anzeigen</strong></span>
+  <div class="photo-toggle-buttons">
+    <button type="button" class="active" data-photos="yes">Ja</button>
+    <button type="button" data-photos="no">Nein</button>
+  </div>
+</div><div class="note"><strong>Fotos:</strong> Für jede konkrete Attraktion wird genau ein passendes Bild aus Wikimedia Commons geladen. Ankunfts- und reine Reisetage bleiben ohne Galerie.</div><div class="day-list" id="dayList"></div></section>
+<section class="sheet" id="karte">
+<div class="sheet-title"><h2>Interaktive Japan-Karte</h2><span class="badge good">zoombar & verschiebbar</span></div>
+<div class="note"><strong>Bedienung:</strong> Ort auswählen oder direkt in die Karte klicken, zoomen und verschieben. Die Karte ist nach euren vier Hotel-Standorten gegliedert. Nara und Narita werden als Unterpunkte bei Osaka angezeigt. Rote Punkte sind Ziele, blaue Punkte die Unterkünfte.</div>
+<div class="map-shell">
+  <div class="card">
+    <h3>Ort auswählen</h3>
+    <div class="city-btns">
+      <button class="city-btn active" data-city="tokyo">Tokyo<small>2 Hotels · 7 Ziele</small></button>
+      <button class="city-btn" data-city="fuji">Fuji / Kawaguchiko<small>1 Hotel · 2 Ziele</small></button>
+      <button class="city-btn" data-city="kyoto">Kyoto<small>1 Hotel · 6 Ziele</small></button>
+      <button class="city-btn" data-city="osaka">Osaka<small>1 Hotel · 6 Ziele</small></button>
+    </div>
+    <div id="cityText" class="muted" style="margin-top:12px"></div>
+    <div class="map-legend">
+      <span><i class="legend-dot hotel"></i>Unterkunft / Startpunkt</span>
+      <span><i class="legend-dot spot"></i>Sehenswürdigkeit</span>
+      <span><i class="legend-dot trip"></i>Reisestadt</span>
+    </div>
+  </div>
+  <div class="map-box"><div id="japanMap" aria-label="Interaktive Karte der Japan-Reise"></div></div>
+</div>
+</section>
 <section class="sheet" id="hotels"><div class="sheet-title"><h2>Hotels</h2></div><div class="grid" id="hotelsList"></div></section>
 <section class="sheet" id="kosten"><div class="sheet-title"><h2>Kosten</h2></div><div class="budget-grid"><div class="metric"><h3>Hotels gesamt</h3><div class="price">€1.060,64</div></div><div class="metric"><h3>Flüge</h3><div class="price">€3.580,37</div></div><div class="metric"><h3>Events gebucht</h3><div class="price">€255,90</div></div><div class="metric"><h3>Gesamt Reise</h3><div class="price">€4.896,91</div></div><div class="metric"><h3>Unterkünfte</h3><div class="price">5</div></div></div><div class="card"><table class="cost-table"><thead><tr><th>Position</th><th>Details</th><th>Betrag</th></tr></thead><tbody><tr><td>Tokyo 1</td><td>Randor Residence Tokyo Classic</td><td class="price">ca. €518</td></tr><tr><td>Fuji</td><td>T&amp;T Fujiyama Guest House</td><td class="price">ca. €46</td></tr><tr><td>Kyoto</td><td>INA House Nijojo</td><td class="price">ca. €229</td></tr><tr><td>Osaka</td><td>Montana Wing Yebisu</td><td class="price">€163</td></tr><tr><td>Tokyo 2</td><td>Super Hotel JR Ueno Iriyaguchi</td><td class="price">€104,64</td></tr></tbody></table></div></section>
 <section class="sheet" id="tickets"><div class="sheet-title"><h2>Tickets</h2><span class="badge warn">Platzhalter</span></div><div class="grid"><div class="ticket"><h3>Nintendo Museum</h3><span class="badge good">gebucht</span><p>02.08.2026 · 14:30–15:00 Uhr JST</p></div><div class="ticket"><h3>teamLab Planets</h3><span class="badge good">gebucht</span><p>24.07.2026 · 19:00–19:30 Uhr JST</p></div><div class="ticket"><h3>Tokyo Skytree</h3><span class="badge good">gebucht</span><p>22.07.2026 · 18:00 Uhr</p></div><div class="ticket"><h3>Shibuya Sky</h3><span class="badge warn">offen</span><p>23.07. oder 26.07. Flex‑Day</p></div></div></section>
 <section class="sheet" id="todo"><div class="sheet-title"><h2>To‑Do</h2><span class="badge warn">speicherbar, wenn erlaubt</span></div><div class="note"><strong>Fix:</strong> To‑Dos bleiben speicherbar, wenn der Browser localStorage erlaubt. In Sandbox-Vorschauen wird kein Scriptfehler mehr ausgelöst.</div><div class="todo-controls"><button id="todo-reset">Alle Haken zurücksetzen</button><button id="todo-check">Alle abhaken</button></div><div class="grid" id="todoList"></div></section>
 <nav class="tabs"><a class="tab active" href="#start" data-sheet="start">Start</a><a class="tab" href="#karte" data-sheet="karte">Karte</a><a class="tab" href="#hotels" data-sheet="hotels">Hotels</a><a class="tab" href="#kosten" data-sheet="kosten">Kosten</a><a class="tab" href="#tickets" data-sheet="tickets">Tickets</a><a class="tab" href="#todo" data-sheet="todo">To‑Do</a></nav>
 </div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const days=[{n:1,date:'21.07.',city:'Tokyo',cls:'tokyo',badge:'Ankunft',desc:'Ankommen, Hotel, Konbini, ruhiger Abend.',maps:'Randor Residence Tokyo Classic',photos:'Randor Residence Tokyo Classic'},{n:2,date:'22.07.',city:'Tokyo',cls:'tokyo',badge:'Skytree gebucht',desc:'Senso‑ji · Tokyo Skytree 18:00 Uhr.',maps:'Senso-ji Tokyo',photos:'Senso-ji Tokyo Tokyo Skytree'},{n:3,date:'23.07.',city:'Tokyo',cls:'tokyo',badge:'Shibuya Sky offen',desc:'Shibuya Crossing + Shibuya Sky.',maps:'Shibuya Sky Tokyo',photos:'Shibuya Sky Tokyo'},{n:4,date:'24.07.',city:'Tokyo',cls:'tokyo',badge:'teamLab gebucht',desc:'teamLab Planets 19:00–19:30.',maps:'teamLab Planets Tokyo',photos:'teamLab Planets Tokyo'},{n:5,date:'25.07.',city:'Tokyo',cls:'tokyo',badge:'',desc:'Akihabara.',maps:'Akihabara Tokyo',photos:'Akihabara Tokyo'},{n:6,date:'26.07.',city:'Tokyo',cls:'tokyo',badge:'Flex‑Day',desc:'Ausweichtermin für Shibuya Sky.',maps:'Tokyo',photos:'Tokyo'},{n:7,date:'27.07.',city:'Fuji',cls:'fuji',badge:'Hotelwechsel',desc:'Kawaguchiko · optional Chureito Pagoda.',maps:'Lake Kawaguchiko',photos:'Lake Kawaguchiko Chureito'},{n:8,date:'28.07.',city:'Reisetag',cls:'travel',badge:'Transfer',desc:'Fuji → Kyoto.',maps:'Kyoto Station',photos:'Kyoto Station'},{n:9,date:'29.07.',city:'Kyoto',cls:'kyoto',badge:'',desc:'Kiyomizu‑dera.',maps:'Kiyomizu-dera Kyoto',photos:'Kiyomizu-dera Kyoto'},{n:10,date:'30.07.',city:'Kyoto',cls:'kyoto',badge:'',desc:'Fushimi Inari + Gion / Nishiki Market.',maps:'Fushimi Inari Taisha Kyoto',photos:'Fushimi Inari Gion Nishiki Kyoto'},{n:11,date:'31.07.',city:'Kyoto',cls:'kyoto',badge:'',desc:'Arashiyama Bamboo Grove.',maps:'Arashiyama Bamboo Grove Kyoto',photos:'Arashiyama Bamboo Grove Kyoto'},{n:12,date:'01.08.',city:'Osaka',cls:'osaka',badge:'Hotelwechsel',desc:'Osaka Castle + Dotonbori.',maps:'Dotonbori Osaka',photos:'Dotonbori Osaka Osaka Castle'},{n:13,date:'02.08.',city:'Osaka/Kyoto',cls:'osaka',badge:'Nintendo gebucht',desc:'Nintendo Museum.',maps:'Nintendo Museum Kyoto',photos:'Nintendo Museum Kyoto'},{n:14,date:'03.08.',city:'Osaka/Nara',cls:'osaka',badge:'',desc:'Nara Park & Todai‑ji.',maps:'Nara Park',photos:'Nara Park Todai-ji'},{n:15,date:'04.08.',city:'Reisetag',cls:'travel',badge:'Transfer',desc:'Osaka → Tokyo.',maps:'Super Hotel JR Ueno Iriyaguchi Tokyo',photos:'Ueno Tokyo'},{n:16,date:'04.08.',city:'Tokyo Abend',cls:'tokyo',badge:'',desc:'Letzter Abend in Tokyo.',maps:'Ueno Tokyo',photos:'Ueno Tokyo'},{n:17,date:'05.08.',city:'Rückflug',cls:'travel',badge:'',desc:'Abflug Narita 10:40.',maps:'Narita International Airport',photos:'Narita International Airport'}];
 const hotels=[['Tokyo 1','Randor Residence Tokyo Classic','21.07.–26.07.','5 Nächte','ca. €518','tokyo'],['Fuji','T&T Fujiyama Guest House','27.07.–28.07.','1 Nacht','ca. €46','fuji'],['Kyoto','INA House Nijojo','28.07.–01.08.','4 Nächte','ca. €229','kyoto'],['Osaka','Montana Wing Yebisu','01.08.–04.08.','3 Nächte','€163','osaka'],['Tokyo 2','Super Hotel JR Ueno Iriyaguchi','04.08.–05.08.','1 Nacht','€104,64','tokyo']];
 const todoItems=[['shibuya','Shibuya Sky final buchen','23.07. oder 26.07. Flex‑Day','open'],['esim','eSIM installieren/testen','Hotspot-fähigen Tarif vor Abflug installieren.','open'],['suica','IC‑Card / Suica vorbereiten','Digitale Suica oder Alternative bereithalten.','open'],['karten','Kreditkarten + PIN prüfen','Zahlungen in JPY/Yen wählen.','open'],['maps','Google Maps Orte speichern','Hotels, Attraktionen, Bahnhöfe speichern.','open'],['translate','Google Übersetzer offline','Japanisch herunterladen.','open'],['takkyubin','Takkyubin einplanen','Koffer Tokyo → Kyoto schicken.','open'],['nintendoqr','Nintendo QR‑Codes abrufen','Ab 01.08.2026 ab 14:00 Uhr JST.','critical'],['apotheke','Reiseapotheke + Hitzeschutz','Sonnencreme, Pflaster, Schmerzmittel.','open'],['narita','Rückflug-Plan Narita','Route ab Ueno zum Flughafen festlegen.','open']];
-function imgSlots(n){let h='';for(let i=1;i<=3;i++)h+=`<figure class="photo-slot"><img src="images/tag${String(n).padStart(2,'0')}-${i}.jpg" onerror="this.closest('figure').classList.add('missing');this.remove();"><figcaption>images/tag${String(n).padStart(2,'0')}-${i}.jpg</figcaption></figure>`;return h}
-function renderDays(){dayList.innerHTML=days.map(d=>`<article class="day ${d.cls}" data-region="${d.cls}"><div class="day-head"><div><h3>Tag ${d.n} · ${d.date} · ${d.city}</h3>${d.badge?`<span class="badge ${d.badge.includes('gebucht')||d.badge.includes('Nintendo')?'good':d.badge.includes('offen')||d.badge.includes('Flex')?'warn':''}">${d.badge}</span>`:''}<p>${d.desc}</p></div><div class="date-pill">${d.date}</div></div><a class="btn" href="https://www.google.com/maps/search/${encodeURIComponent(d.maps)}" target="_blank">📍 Google Maps</a><a class="btn primary" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(d.photos)}" target="_blank">📸 Fotos suchen</a><div class="photo-grid">${imgSlots(d.n)}</div></article>`).join('')}
+const attractionsByDay={
+  2:['Senso-ji Tokyo','Tokyo Skytree'],
+  3:['Shibuya Crossing','Shibuya Sky'],
+  4:['teamLab Planets Tokyo'],
+  5:['Akihabara Electric Town neon Tokyo'],
+  7:['Lake Kawaguchiko','Chureito Pagoda'],
+  9:['Kiyomizu-dera Kyoto'],
+  10:['Fushimi Inari Taisha','Nishiki Market Kyoto'],
+  11:['Arashiyama Bamboo Grove'],
+  12:['Osaka Castle Japan exterior'],
+  13:['Nintendo Museum Kyoto'],
+  14:['Nara Park','Todai-ji'],
+  16:[]
+};
+function imgSlots(n){
+  const attractions=attractionsByDay[n]||[];
+  if(!attractions.length)return '';
+  return attractions.map((name,i)=>`<figure class="photo-slot loading" data-day="${n}" data-slot="${i}" data-query="${name}"><figcaption>${name} · Bild wird geladen …</figcaption></figure>`).join('');
+}
+async function loadCommonsImage(slot){
+  const query=slot.dataset.query;
+  const url='https://commons.wikimedia.org/w/api.php?origin=*&action=query&generator=search&gsrnamespace=6&gsrlimit=5&gsrsearch='+encodeURIComponent(query)+'&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1200&format=json';
+  try{
+    const res=await fetch(url);
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    const pages=Object.values(data.query?.pages||{}).filter(p=>p.imageinfo?.[0]?.thumburl);
+    const p=pages[0];
+    if(!p)throw new Error('Kein Bild');
+    const info=p.imageinfo[0];
+    const title=p.title.replace(/^File:/,'');
+    slot.classList.remove('loading');
+    slot.innerHTML=`<a href="${info.descriptionurl}" target="_blank" rel="noopener"><img src="${info.thumburl}" alt="${query}" loading="lazy"></a><figcaption>${query} · Wikimedia Commons</figcaption>`;
+  }catch(e){
+    slot.classList.add('missing');
+    slot.querySelector('figcaption').textContent=query+' · Foto nicht verfügbar';
+  }
+}
+function loadAllCommonsPhotos(){
+  document.querySelectorAll('.photo-slot[data-query]').forEach((slot,i)=>setTimeout(()=>loadCommonsImage(slot),i*180));
+}
+function renderDays(){dayList.innerHTML=days.map(d=>`<article class="day ${d.cls}" data-region="${d.cls}"><div class="day-head"><div><h3>Tag ${d.n} · ${d.date} · ${d.city}</h3>${d.badge?`<span class="badge ${d.badge.includes('gebucht')||d.badge.includes('Nintendo')?'good':d.badge.includes('offen')||d.badge.includes('Flex')?'warn':''}">${d.badge}</span>`:''}<p>${d.desc}</p></div><div class="date-pill">${d.date}</div></div><a class="btn" href="https://www.google.com/maps/search/${encodeURIComponent(d.maps)}" target="_blank">📍 Google Maps</a><a class="btn primary" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(d.photos)}" target="_blank">📸 Fotos suchen</a>${(attractionsByDay[d.n]||[]).length?`<div class="photo-grid count-${(attractionsByDay[d.n]||[]).length}">${imgSlots(d.n)}</div>`:''}</article>`).join('')}
 function renderHotels(){hotelsList.innerHTML=hotels.map(h=>`<div class="hotel ${h[5]}"><h3>${h[0]} · ${h[1]}</h3><div class="muted">${h[2]} · ${h[3]}</div><div class="price">${h[4]}</div><a class="btn" href="https://www.google.com/maps/search/${encodeURIComponent(h[1])}" target="_blank">📍 Google Maps</a></div>`).join('')}
 function safeGet(k){try{return window.localStorage?localStorage.getItem(k):null}catch(e){return null}}function safeSet(k,v){try{if(window.localStorage)localStorage.setItem(k,v)}catch(e){}}function safeRemove(k){try{if(window.localStorage)localStorage.removeItem(k)}catch(e){}}
 function renderTodos(){todoList.innerHTML=todoItems.map(t=>`<label class="todo ${t[3]}"><input type="checkbox" data-todo="${t[0]}"><span><h3>${t[1]}</h3><p>${t[2]}</p></span></label>`).join('');const inputs=todoList.querySelectorAll('input');function update(i){const item=i.closest('.todo');item.classList.toggle('done',i.checked);if(i.checked)item.classList.remove('open','critical');else{const base=todoItems.find(t=>t[0]===i.dataset.todo)[3];item.classList.toggle('critical',base==='critical');item.classList.toggle('open',base!=='critical')}}inputs.forEach(i=>{i.checked=safeGet('jp_todo_'+i.dataset.todo)==='1';update(i);i.addEventListener('change',()=>{safeSet('jp_todo_'+i.dataset.todo,i.checked?'1':'0');update(i)})});document.getElementById('todo-reset').onclick=()=>inputs.forEach(i=>{i.checked=false;safeRemove('jp_todo_'+i.dataset.todo);update(i)});document.getElementById('todo-check').onclick=()=>inputs.forEach(i=>{i.checked=true;safeSet('jp_todo_'+i.dataset.todo,'1');update(i)})}
-function switchSheet(id){document.querySelectorAll('.sheet').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.sheet===id));if(location.hash!=='#'+id)history.replaceState(null,'','#'+id)}
+function switchSheet(id){document.querySelectorAll('.sheet').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.sheet===id));if(location.hash!=='#'+id)history.replaceState(null,'','#'+id);if(id==='karte'){initJapanMap();requestAnimationFrame(()=>requestAnimationFrame(()=>{if(japanMap){japanMap.invalidateSize(true);selectMapCity(document.querySelector('.city-btn.active')?.dataset.city||'tokyo')}}))}}
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',e=>{e.preventDefault();switchSheet(t.dataset.sheet);scrollTo({top:0,behavior:'smooth'})}));
 document.querySelectorAll('.filter button').forEach(b=>b.addEventListener('click',()=>{const f=b.dataset.filter;document.querySelectorAll('.filter button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('#dayList .day').forEach(card=>card.classList.toggle('hidden',!(f==='all'||card.dataset.region===f)))}));
-document.querySelectorAll('.city-btn').forEach(b=>b.addEventListener('click',()=>{const c=b.dataset.city;document.querySelectorAll('.city-btn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.map-layer').forEach(x=>x.classList.toggle('active',x.id==='map-'+c));cityText.innerHTML={gesamt:'Gesamtroute: Tokyo → Fuji → Kyoto → Osaka/Nara → Tokyo',tokyo:'Tokyo: Hotel plus Senso‑ji, Skytree, Shibuya Sky, teamLab und Akihabara.',fuji:'Fuji: Kawaguchiko und optional Chureito Pagoda.',kyoto:'Kyoto: Kiyomizu‑dera, Fushimi Inari, Gion/Nishiki, Arashiyama.',osaka:'Osaka: Dotonbori, Osaka Castle, Nintendo Museum, Nara-Ausflug.',nara:'Nara: Nara Park und Todai‑ji.'}[c]}));
-renderDays();renderHotels();renderTodos();document.querySelector('.city-btn[data-city="gesamt"]').click();const h=(location.hash||'#start').replace('#','');if(document.getElementById(h))switchSheet(h);
+function applyPhotoVisibility(show){
+  document.body.classList.toggle('photos-hidden',!show);
+  document.querySelectorAll('.photo-toggle button').forEach(btn=>btn.classList.toggle('active',(show&&btn.dataset.photos==='yes')||(!show&&btn.dataset.photos==='no')));
+  safeSet('jp_show_photos',show?'1':'0');
+}
+document.querySelectorAll('.photo-toggle button').forEach(btn=>btn.addEventListener('click',()=>applyPhotoVisibility(btn.dataset.photos==='yes')));
+
+
+const mapViews={
+tokyo:{text:'Tokyo: beide Unterkünfte sowie Senso-ji, Skytree, Shibuya Crossing, Shibuya Sky, teamLab, Akihabara und Ueno.'},
+fuji:{text:'Fuji/Kawaguchiko: Unterkunft, Kawaguchiko-See und Chureito-Pagode.'},
+kyoto:{text:'Kyoto: Unterkunft, Kyoto Station, Kiyomizu-dera, Fushimi Inari, Gion, Nishiki Market und Arashiyama.'},
+osaka:{text:'Osaka: Unterkunft, Dotonbori, Osaka Castle, Nintendo Museum sowie Nara Park und Todai-ji.'}
+};
+const mapPoints=[
+{name:'Tokyo – Randor Residence',lat:35.7395,lng:139.7765,type:'hotel',city:'tokyo',info:'Unterkunft Tokyo 1'},
+{name:'Senso-ji',lat:35.7148,lng:139.7967,type:'spot',city:'tokyo',info:'Tag 2'},
+{name:'Shibuya Crossing',lat:35.6595,lng:139.7005,type:'spot',city:'tokyo',info:'Tag 3'},
+{name:'Tokyo Skytree',lat:35.7101,lng:139.8107,type:'spot',city:'tokyo',info:'22.07. · 18:00 Uhr'},
+{name:'Shibuya Sky',lat:35.6585,lng:139.7013,type:'spot',city:'tokyo',info:'offener Termin'},
+{name:'teamLab Planets',lat:35.6491,lng:139.7898,type:'spot',city:'tokyo',info:'24.07. · 19:00 Uhr'},
+{name:'Akihabara',lat:35.6984,lng:139.7731,type:'spot',city:'tokyo',info:'Tag 5'},
+{name:'Ueno / Super Hotel',lat:35.7138,lng:139.7787,type:'hotel',city:'tokyo',info:'Unterkunft Tokyo 2'},
+{name:'Ueno',lat:35.7141,lng:139.7774,type:'spot',city:'tokyo',info:'Tag 16 · letzter Abend'},
+{name:'Fuji – T&T Fujiyama',lat:35.4973,lng:138.7552,type:'hotel',city:'fuji',info:'Unterkunft Fuji'},
+{name:'Lake Kawaguchiko',lat:35.5171,lng:138.7518,type:'spot',city:'fuji',info:'Tag 7'},
+{name:'Chureito-Pagode',lat:35.5013,lng:138.8014,type:'spot',city:'fuji',info:'optional'},
+{name:'Kyoto Station',lat:34.9858,lng:135.7588,type:'spot',city:'kyoto',info:'Tag 8 · Ankunft aus Fuji'},
+{name:'Kyoto – INA House Nijojo',lat:35.0142,lng:135.7423,type:'hotel',city:'kyoto',info:'Unterkunft Kyoto'},
+{name:'Kiyomizu-dera',lat:34.9949,lng:135.7850,type:'spot',city:'kyoto',info:'Tag 9'},
+{name:'Fushimi Inari',lat:34.9671,lng:135.7727,type:'spot',city:'kyoto',info:'Tag 10'},
+{name:'Gion',lat:35.0037,lng:135.7788,type:'spot',city:'kyoto',info:'Tag 10'},
+{name:'Nishiki Market',lat:35.0050,lng:135.7647,type:'spot',city:'kyoto',info:'Tag 10'},
+{name:'Arashiyama',lat:35.0094,lng:135.6668,type:'spot',city:'kyoto',info:'Tag 11'},
+{name:'Osaka – Montana Wing Yebisu',lat:34.6507,lng:135.5055,type:'hotel',city:'osaka',info:'Unterkunft Osaka'},
+{name:'Dotonbori',lat:34.6687,lng:135.5013,type:'spot',city:'osaka',info:'Tag 12'},
+{name:'Osaka Castle',lat:34.6873,lng:135.5262,type:'spot',city:'osaka',info:'Tag 12'},
+{name:'Nintendo Museum',lat:34.8892,lng:135.7961,type:'spot',city:'osaka',info:'02.08. · Uji'},
+{name:'Nara Park',lat:34.6850,lng:135.8430,type:'spot',city:'osaka',info:'Tag 14'},
+{name:'Todai-ji',lat:34.6890,lng:135.8398,type:'spot',city:'osaka',info:'Tag 14'}
+];
+let japanMap,mapMarkers=[];
+function markerStyle(type){return{radius:type==='hotel'?9:8,fillColor:type==='hotel'?'#2563eb':'#ef4444',color:'#fff',weight:2,opacity:1,fillOpacity:.95}}
+function initJapanMap(){
+ if(japanMap||typeof L==='undefined')return;
+ japanMap=L.map('japanMap',{zoomControl:true,scrollWheelZoom:true}).setView([35.681,139.756],10);
+ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap-Mitwirkende'}).addTo(japanMap);
+ mapPoints.forEach(p=>{
+   const m=L.circleMarker([p.lat,p.lng],markerStyle(p.type)).addTo(japanMap)
+     .bindPopup(`<strong>${p.name}</strong><br>${p.info}<br><a href="https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lng}" target="_blank" rel="noopener">In Google Maps öffnen</a>`);
+   m.pointCity=p.city;
+   m.pointLatLng=[p.lat,p.lng];
+   mapMarkers.push(m);
+ });
+ setTimeout(()=>{japanMap.invalidateSize();selectMapCity('tokyo')},100);
+}
+function selectMapCity(c){
+ initJapanMap();
+ document.querySelectorAll('.city-btn').forEach(x=>x.classList.toggle('active',x.dataset.city===c));
+ cityText.textContent=mapViews[c].text;
+ const visible=[];
+ mapMarkers.forEach(m=>{
+   if(m.pointCity===c){
+     if(!japanMap.hasLayer(m))m.addTo(japanMap);
+     visible.push(m.pointLatLng);
+   }else if(japanMap.hasLayer(m)){
+     japanMap.removeLayer(m);
+   }
+ });
+ if(visible.length){
+   japanMap.fitBounds(L.latLngBounds(visible),{padding:[35,35],maxZoom:13,animate:true});
+ }
+ setTimeout(()=>japanMap.invalidateSize(),100);
+}
+document.querySelectorAll('.city-btn').forEach(b=>b.addEventListener('click',()=>selectMapCity(b.dataset.city)));
+
+renderDays();renderHotels();renderTodos();loadAllCommonsPhotos();applyPhotoVisibility(safeGet('jp_show_photos')!=='0');const h=(location.hash||'#start').replace('#','');if(document.getElementById(h))switchSheet(h);if(h==='karte')selectMapCity('tokyo');else cityText.textContent=mapViews.tokyo.text;
 </script>
 </body></html>
